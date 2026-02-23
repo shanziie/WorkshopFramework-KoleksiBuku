@@ -40,11 +40,20 @@
                         <span class="text-danger small">{{ $message }}</span>
                     @enderror
                   </div>
-                  
-                  <div class="mt-3 d-grid gap-2">
-                    <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">SIGN IN</button>
-                  </div>
-                  
+                
+                  <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">
+                    SIGN IN
+                  </button>
+                </div>
+
+                <div class="mt-3 d-grid gap-2">
+                  <a href="{{ route('auth.google.redirect') }}" 
+                    class="btn btn-block btn-outline-danger btn-lg font-weight-medium auth-form-btn d-flex align-items-center justify-content-center">
+                    <i class="fa fa-google me-2"></i>
+                    Sign in with Google
+                  </a>
+                </div>
+
                   <div class="my-2 d-flex justify-content-between align-items-center">
                     <div class="form-check">
                       <label class="form-check-label text-muted">
