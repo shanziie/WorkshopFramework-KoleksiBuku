@@ -227,15 +227,21 @@
                     <div class="collapse {{ Request::is('dokumen*') ? 'show' : '' }}" id="dokumen-pdf">
                       <ul class="nav flex-column sub-menu">
                         <li class="nav-item"> 
-                          <a class="nav-link" href="{{ route('pdf.sertifikat') }}" target="_blank"> Sertifikat </a>
+                          <a class="nav-link" href="{{ route('dokumen.sertifikat') }}" target="_blank"> Sertifikat </a>
                         </li>
                         <li class="nav-item"> 
-                          <a class="nav-link" href="{{ route('pdf.undangan') }}" target="_blank"> Undangan </a>
+                          <a class="nav-link" href="{{ route('dokumen.undangan') }}" target="_blank"> Undangan </a>
                         </li>
                       </ul>
                     </div>
                   </li>
-          </ul>
+              <li class="nav-item {{ Request::is('dokumen/barang*') ? 'active' : '' }}">
+                  <a class="nav-link" href="{{ route('barang.index') }}">
+                      <span class="menu-title">Tag Harga</span>
+                      <i class="mdi mdi-tag menu-icon"></i>
+                  </a>
+              </li>   
+                        </ul>
         </nav>
         <div class="main-panel">
           <div class="content-wrapper">

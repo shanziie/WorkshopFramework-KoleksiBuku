@@ -1,73 +1,127 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="UTF-8">
     <style>
-        @page { size: A4 landscape; margin: 0; }
-        body { font-family: 'Georgia', serif; background-color: #fff; margin: 0; padding: 0; }
-        .wrapper {
-            padding: 30px;
-            height: 92%;
+        /* Pengaturan Kertas A4 Landscape */
+        @page { size: a4 landscape; margin: 0; }
+        body { font-family: 'Helvetica', Arial, sans-serif; margin: 0; padding: 0; }
+
+        /* Background & Frame Utama */
+        .container {
+            width: 297mm;
+            height: 210mm;
+            position: relative;
+            background: white;
+            overflow: hidden;
         }
-        .outer-border {
-            border: 15px solid #7a2d81; 
-            height: 100%;
-            padding: 10px;
-        }
-        .inner-border {
-            border: 2px solid #7a2d81;
-            height: 100%;
+
+        /* Ornamen Sudut (Lengkungan Ungu/Marun) */
+        .corner-top-left { position: absolute; top: 0; left: 0; width: 250px; opacity: 0.8; }
+        .corner-bottom-right { position: absolute; bottom: 0; right: 0; width: 350px; transform: rotate(180deg); }
+
+        /* Baris Logo Instansi di Atas */
+        .header-logos {
             text-align: center;
-            padding: 40px;
-            background-image: radial-gradient(circle, #ffffff, #fcfaff);
+            padding-top: 30px;
+            z-index: 10;
+            position: relative;
         }
-        .cert-title { font-size: 65px; color: #7a2d81; font-weight: bold; margin-top: 20px; }
-        .cert-no { letter-spacing: 4px; font-size: 14px; margin-bottom: 21x; }
-        .recipient { font-size: 20px; color: #555; }
-        .name { 
-            font-size: 50px; 
-            font-weight: bold; 
-            color: #333; 
-            margin: 20px 0;
-            border-bottom: 2px solid #7a2d81;
-            display: inline-block;
-            padding: 0 40px;
+        .header-logos img { height: 35px; margin: 0 8px; vertical-align: middle; }
+
+        /* Judul & Nomor */
+        .title-section { text-align: center; margin-top: 20px; color: #333; }
+        .main-title { font-size: 55pt; font-weight: bold; margin: 0; letter-spacing: 4px; font-family: serif; }
+        .cert-number { font-size: 16pt; margin-top: -5px; }
+
+        /* Isi Sertifikat */
+        .content { text-align: center; margin-top: 20px; z-index: 10; position: relative; }
+        .text-diberikan { font-size: 18pt; margin-bottom: 10px; }
+        .name { font-size: 38pt; font-weight: bold; color: #5a1a3a; margin-bottom: 5px; }
+        .as-role { font-size: 18pt; margin: 15px 0 5px 0; }
+        .role-title { font-size: 28pt; font-weight: bold; color: #333; text-transform: uppercase; }
+
+        /* Deskripsi Acara */
+        .event-details {
+            font-size: 11pt;
+            width: 80%;
+            margin: 20px auto;
+            line-height: 1.4;
+            color: #444;
         }
-        .event { font-size: 18px; line-height: 1.6; width: 85%; margin: 0 auto; color: #444; }
-        .footer { margin-top: 60px; width: 100%; }
-        .footer td { width: 33%; vertical-align: bottom; font-size: 14px; }
+
+        /* Tanda Tangan */
+        .footer-signatures {
+            width: 90%;
+            margin: 40px auto 0;
+            text-align: center;
+        }
+        .sig-block { width: 33%; float: left; position: relative; }
+        .sig-space { height: 80px; }
+        .sig-name { font-weight: bold; text-decoration: underline; font-size: 11pt; margin-bottom: 2px; }
+        .sig-title { font-size: 10pt; line-height: 1.2; margin-bottom: 5px; }
+        
+        /* Stempel/Badge Medali */
+        .medal-badge {
+            position: absolute;
+            top: 130px;
+            right: 80px;
+            width: 140px;
+            z-index: 20;
+        }
     </style>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="outer-border">
-            <div class="inner-border">
-                <div class="cert-title">SERTIFIKAT</div>
-                <div class="cert-no">NOMOR: 3353/B/UN3.FV/2025</div> 
 
-                <p class="recipient">Diberikan Kepada:</p> 
-                <div class="name">Shima Maharani</div> 
+    <div class="container">
+        <svg class="corner-top-left" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#5a1a3a" d="M0,0 L200,0 Q100,100 0,200 Z" opacity="0.2"/>
+        </svg>
 
-                <p class="event">
-                    Atas Partisipasinya Sebagai <strong>{{ $peran }}</strong>  <br>
-                    Dalam acara: <i>{{ $acara }}</i> <br>
-                    diselenggarakan oleh Program Studi Kesehatan Masyarakat FIKKIA UNAIR pada {{ $tanggal }}. 
+        <div class="header-logos">
+            <img src="https://unair.ac.id/wp-content/uploads/2021/04/Logo-Unair-biru-300x300.png">
+            </div>
 
-                <table class="footer">
-                    <tr>
-                        <td>
-                            Dekan FIKKIA UNAIR<br><br><br><br>
-                            <strong>Prof. Dian Yulie R, Ph.D</strong> 
-                        </td>
-                        <td></td>
-                        <td>
-                            Ketua Pelaksana<br><br><br><br>
-                            <strong>( Shima Maharani )</strong> 
-                        </td>
-                    </tr>
-                </table>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d4/Gold_medal_icon.svg/1024px-Gold_medal_icon.svg.png" class="medal-badge">
+
+        <div class="title-section">
+            <h1 class="main-title">SERTIFIKAT</h1>
+            <div class="cert-number">3353 / B / {{ date('Y') }}</div>
+        </div>
+
+        <div class="content">
+            <div class="text-diberikan">Diberikan kepada :</div>
+            <div class="name">{{ $nama }}</div>
+            
+            <div class="as-role">Atas Partisipasinya Sebagai:</div>
+            <div class="role-title">{{ $peran }}</div> <div class="event-details">
+                Dalam acara: <strong>{{ $acara }}</strong> dengan tema "Membalik Tren Global: Menjawab Epidemi Penyakit Tidak Menular Melalui Revolusi Gaya Hidup dan Kekuatan Kesehatan Masyarakat" yang diselenggarakan oleh Program Studi Kesehatan Masyarakat FIKKIA Universitas Airlangga pada {{ $tanggal }}.
+            </div>
+        </div>
+
+        <div class="footer-signatures">
+            <div class="sig-block">
+                <div class="sig-title">Dekan FIKKIA UNAIR</div>
+                <div class="sig-space"></div>
+                <div class="sig-name">Prof. Dr. dr. Soetojo, Sp.U(K)</div>
+                <div>NIP. 196001011987011001</div>
+            </div>
+
+            <div class="sig-block">
+                <div class="sig-title">Koordinator Program Studi<br>Kesehatan Masyarakat FIKKIA UNAIR</div>
+                <div class="sig-space"></div>
+                <div class="sig-name">Syifa'ul Laili, S.KM., M.Kes</div>
+                <div>NIK. 199001012015012001</div>
+            </div>
+
+            <div class="sig-block">
+                <div class="sig-title">Ketua Pelaksana</div>
+                <div class="sig-space"></div>
+                <div class="sig-name">Shima Maharani Onessis</div>
+                <div>NIM. 434241057</div>
             </div>
         </div>
     </div>
+
 </body>
 </html>

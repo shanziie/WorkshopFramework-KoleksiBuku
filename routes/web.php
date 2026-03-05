@@ -2,21 +2,23 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
 use App\Http\Controllers\BukuController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\Auth\OtpController;
 use App\Http\Controllers\PdfController;
-use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\BarangController;
 
-// Google OAuth
+// ================= GOOGLE OAUTH =================
 Route::get('/auth/google', [GoogleController::class, 'redirect'])
     ->name('auth.google.redirect');
 
 Route::get('/auth/google/callback', [GoogleController::class, 'callback'])
     ->name('auth.google.callback');
 
-// Test Email (sementara buat debug SMTP)
+// ================= TEST EMAIL =================
 Route::get('/test-email', function () {
     Mail::raw('Tes OTP Email', function ($m) {
         $m->to('shimaonessis@gmail.com')->subject('Tes SMTP Laravel');
@@ -24,7 +26,7 @@ Route::get('/test-email', function () {
     return 'Cek inbox / spam.';
 });
 
-// OTP (pakai Controller, jangan closure)
+// ================= OTP =================
 Route::get('/verify-otp', [OtpController::class, 'showVerifyForm'])
     ->name('verify.otp');
 
@@ -34,29 +36,38 @@ Route::post('/verify-otp', [OtpController::class, 'verify'])
 Route::post('/resend-otp', [OtpController::class, 'resend'])
     ->name('verify.otp.resend');
 
-// Default route
+// ================= DEFAULT =================
 Route::get('/', function () {
     return redirect()->route('login');
 });
 
 Auth::routes();
 
+// ================= AUTH AREA =================
 Route::middleware(['auth'])->group(function () {
+
     Route::get('/home', function () {
         return view('home');
     })->name('home');
 
     Route::resource('kategori', KategoriController::class);
-
     Route::resource('buku', BukuController::class);
 
     Route::prefix('dokumen')->group(function () {
-        // Route untuk Sertifikat (Landscape A4)
-        Route::get('/sertifikat', [PdfController::class, 'generateSertifikat'])
-            ->name('pdf.sertifikat');
 
-        // Route untuk Undangan/Pengumuman (Portrait A4 + Header)
+        // ===== PDF SERTIFIKAT & UNDANGAN =====
+        Route::get('/sertifikat', [PdfController::class, 'generateSertifikat'])
+            ->name('dokumen.sertifikat');
+
         Route::get('/undangan', [PdfController::class, 'generateUndangan'])
-            ->name('pdf.undangan'); 
+            ->name('dokumen.undangan');
+
+        // ===== BARANG (INI YANG FIX TOTAL) =====
+        Route::resource('barang', BarangController::class);
+
+        Route::post('/barang/pdf-tag',
+            [BarangController::class, 'pdf_tag']
+        )->name('barang.pdf_tag');
+
     });
 });
